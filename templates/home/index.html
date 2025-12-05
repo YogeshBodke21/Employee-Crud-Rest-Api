@@ -1,0 +1,42 @@
+{% extends "home/base.html" %}
+{% load static %}
+{%  block title  %} Emp-List {% endblock %}
+
+{%  block main  %}
+<table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">photo</th>
+        <th scope="col">First Name</th>
+        <th scope="col">Last Name</th>
+        <th scope="col">Department</th>
+        <th scope="col">Designation</th>
+        <th scope="col">Salary</th>
+        <th scope="col">Phone No.</th>
+        <th scope="col">Joinig Date</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for e in emp %}
+      <tr>
+        <td>{{e.id}}</td>
+        <td><img src="{{e.photo.url}}" alt="" class="card-img" height="60px"></td>
+        <td>{{e.first_name}}</td>
+        <td>{{e.last_name}}</td>
+        <td>{{e.Department}}</td>
+        <td>{{e.Designation}}</td>
+        <td>{{e.salary}}</td>
+        <td>{{e.phone}}</td>
+        <td>{{e.hire_date}}</td>
+        <form method="POST" action="">
+            {% csrf_token %}
+        
+        <td><a href="{% url "up_emp" e.id %}" class="btn btn-warning" type="submit">Update</a><a href="{% url "del_emp" e.id %}"  class="btn btn-danger m-1" type="submit">Delete</a></td>
+        </form>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
