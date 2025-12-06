@@ -10,10 +10,11 @@ class Employee_form(forms.ModelForm):
         widgets = {
             'first_name': forms.TextInput(attrs={'placeholder':"ex. Ajay", 'class':'form-control','required': 'required' }),
             'last_name': forms.TextInput(attrs={'placeholder':"ex. Kohli",'class':'form-control', 'required': 'required'}),
-            'department': forms.Select(attrs={"class":"custom-select custom-select-lg",'required': 'required'}),
+            'photo': forms.FileInput(attrs={'class':'form-control', 'type':'file','required': 'required'}),
+            'department': forms.Select(attrs={"class":"form-select",'required': 'required'}),
             'salary': forms.NumberInput(attrs={'placeholder':"ex. 10,000",'class':'form-control', 'required': 'required'}),
             'bonus': forms.NumberInput(attrs={'placeholder':"ex. 1,000",'class':'form-control', 'required': 'required'}),
-            'designation': forms.Select(attrs={ "class":"custom-select custom-select-lg", 'required': 'required' }),
+            'designation': forms.Select(attrs={ "class":"form-select", 'required': 'required' }),
             'phone': forms.NumberInput(attrs={'class':'form-control', 'required': 'required'}),
             'hire_date': forms.DateInput(attrs={'class':'form-control', 'type':'date', 'required': 'required'}),
         }

@@ -1,0 +1,40 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% block title %} Login {% endblock %}
+
+{% block main %}
+<div class="container">
+    <div class="row my-3">
+        <div class="col-sm-5 offset-sm-3">
+            <h3 class="text-center">Login</h3><hr>
+            <form method="post" class="shadow p-5">
+                {% csrf_token %}
+                {% if messages %}
+                {% for message in messages %}
+                           <p class="text-danger"> {{ message }}</p>
+                {% endfor %}
+                {% endif %}
+                <label for='un'>Username:</label>
+                <input type="text" name="uname" id="un" class="form-control" required>
+                <br>
+                <label for='pw'>Password:</label>
+                <input type="password" name="passw" id="pw" class="form-control" required><br><br>
+                <div class="d-grid ">
+                <input type="submit" value="Log in" class="d-grid btn btn-primary"><br> </div>
+                <div class="text-center text-primary fw-bold">
+                    <small>New User ? <a href="{%url 'signup'%}" class="text-danger">Sign Up here</a></small>
+                </div>
+                {% if errors %}
+                    {% for error in errors %}
+                        <p class="alert alert-danger">{{error}}</p>
+                    {% endfor %}
+                {% endif %}
+               
+
+            </form>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

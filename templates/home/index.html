@@ -1,91 +1,87 @@
-{% extends "home/base.html" %}
-{% load static %}
-{%  block title  %} Emp-List {% endblock %}
-{%block sty %}
+{% extends "home/base.html" %} 
+{% load static %} 
+{% block title %} Emp-List {% endblock %}
+ {%block sty %} 
+ .msg {
+  position: fixed; 
+  margin:auto;
+  padding: auto;
+  left: 50%; 
+  transform: translateX(-50%); 
+  background-color: #4CAF50; /* green */ 
+  color: white; 
+  padding: 15px 25px; 
+  border-radius: 8px; 
+  font-size: 18px; 
+  text-align: center; 
+  z-index: 9999; 
+  opacity: 1; 
+  transition: opacity 1s ease-out; } 
 
-    .msg {
-    position: fixed;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #4CAF50; /* green */
-    color: white;
-    padding: 15px 25px;
-    border-radius: 8px;
-    font-size: 18px;
-    text-align: center;
-    z-index: 9999;
-    opacity: 1;
-    transition: opacity 1s ease-out;
-}
-.action-cell {
+  .action-cell {
+    margin:0;
+    padding:0;
     display: flex;
-    align-items: center;
-    gap: 8px;         /* space between buttons */
+    height : 100%;
+    
+    
 }
 
-{% endblock %}
 
-{%  block main  %}
-
-{% if messages %}
-  {% for message in messages %}
-    <div id="msg-box" class="msg">
-            {{ message }}
-        </div>
-  {% endfor %}
-{% endif %}
-
+    {% endblock %} 
+    
+    {% block main %} 
+    {% if messages %} 
+    {% for message in messages %} 
+    <div id="msg-box" class="msg"> {{ message }} </div>
+    {% endfor %} 
+    {% endif %} 
 <table class="table table-hover">
-    <thead>
+   <thead>
       <tr>
-        <th scope="col">ID</th>
-        <th scope="col">photo</th>
-        <th scope="col">First Name</th>
-        <th scope="col">Last Name</th>
-        <th scope="col">Department</th>
-        <th scope="col">Designation</th>
-        <th scope="col">Salary</th>
-        <th scope="col">Phone No.</th>
-        <th scope="col">Joinig Date</th>
-        <th scope="col">Action</th>
+         <th scope="col">ID</th>
+         <th scope="col">photo</th>
+         <th scope="col">First Name</th>
+         <th scope="col">Last Name</th>
+         <th scope="col">Department</th>
+         <th scope="col">Designation</th>
+         <th scope="col">Salary</th>
+         <th scope="col">Phone No.</th>
+         <th scope="col">Joinig Date</th>
+         <th scope="col">Action</th>
       </tr>
-    </thead>
-    <tbody>
-    {% for e in emp %}
+   </thead>
+   <tbody>
+      {% for e in emp %} 
       <tr>
-        <td>{{e.id}}</td>
-        <td><img src="{{e.photo.url}}" alt="" class="card-img" height="60px"></td>
-        <td>{{e.first_name}}</td>
-        <td>{{e.last_name}}</td>
-        <td>{{e.Department}}</td>
-        <td>{{e.Designation}}</td>
-        <td>{{e.salary}}</td>
-        <td>{{e.phone}}</td>
-        <td>{{e.hire_date}}</td>
-        <td class="action-cell">
-          <a href="{% url 'up_emp' e.id %}" class="btn btn-warning">Update</a>
-
-          <form method="POST" action="{% url 'del_emp' e.id %}">
-              {% csrf_token %}
+         <td>{{e.id}}</td>
+         <td><img src="{{e.photo.url}}" alt="" class="card-img" height="60px"></td>
+         <td>{{e.first_name}}</td>
+         <td>{{e.last_name}}</td>
+         <td>{{e.Department}}</td>
+         <td>{{e.Designation}}</td>
+         <td>{{e.salary}}</td>
+         <td>{{e.phone}}</td>
+         <td>{{e.hire_date}}</td>
+         <td class="action-cell">
+            <a href="{% url 'up_emp' e.id %}" class="btn btn-warning">Update</a> 
+            <form method="POST" action="{% url 'del_emp' e.id %}"> 
+              {% csrf_token %} 
               <button type="submit" class="btn btn-danger">Delete</button>
-          </form>
-      </td>
-
+            </form>
+         </td>
       </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-{% endblock %}
-{%  block script  %} 
-
-<script>
-$(document).ready(function() {
-  console.log("hiii")
+      {% endfor %} 
+   </tbody>
+</table>
+{% endblock %} 
+{% block script %} 
+<script> 
+  $(document).ready(function() { 
+    console.log("hiii") 
     setTimeout(function() {
-        $("#msg-box").hide();
-    }, 5000); // 10 seconds
-});
-</script>
-
-{% endblock %}
+       $("#msg-box").hide(); 
+      }, 5000);  //10 seconds
+       }); 
+    </script> {% endblock %}
+    
