@@ -18,7 +18,7 @@ class Role(models.Model):
 class Employee(models.Model):
     first_name = models.CharField(max_length=100, null=False)
     last_name = models.CharField(max_length=100, null=False)
-    photo = models.ImageField(upload_to='Images')
+    photo = models.ImageField(upload_to='Images', null=True, blank=True)
     Department = models.ForeignKey(Department, on_delete=models.CASCADE, default="Free")
     salary = models.IntegerField(default=0)
     bonus = models.IntegerField(default=0)

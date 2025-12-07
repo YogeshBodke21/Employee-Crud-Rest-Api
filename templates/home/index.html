@@ -2,22 +2,7 @@
 {% load static %} 
 {% block title %} Emp-List {% endblock %}
  {%block sty %} 
- .msg {
-  position: fixed; 
-  margin:auto;
-  padding: auto;
-  left: 50%; 
-  transform: translateX(-50%); 
-  background-color: #4CAF50; /* green */ 
-  color: white; 
-  padding: 15px 25px; 
-  border-radius: 8px; 
-  font-size: 18px; 
-  text-align: center; 
-  z-index: 9999; 
-  opacity: 1; 
-  transition: opacity 1s ease-out; } 
-
+ 
   .action-cell {
     margin:0;
     padding:0;
@@ -26,14 +11,24 @@
     
     
 }
-
+td, tr, form, a, button{
+   border:none;
+   margin:0;
+    padding:0;
+}
 
     {% endblock %} 
     
     {% block main %} 
+
     {% if messages %} 
     {% for message in messages %} 
-    <div id="msg-box" class="msg"> {{ message }} </div>
+    <div class="alert alert-warning alert-dismissible " role="alert">
+         <strong>{{ message }}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+            </button>
+   </div>  
     {% endfor %} 
     {% endif %} 
 <table class="table table-hover">
@@ -63,11 +58,11 @@
          <td>{{e.salary}}</td>
          <td>{{e.phone}}</td>
          <td>{{e.hire_date}}</td>
-         <td class="action-cell">
+         <td class="action-cell my-2">
             <a href="{% url 'up_emp' e.id %}" class="btn btn-warning">Update</a> 
             <form method="POST" action="{% url 'del_emp' e.id %}"> 
               {% csrf_token %} 
-              <button type="submit" class="btn btn-danger">Delete</button>
+              <button type="submit" class="btn btn-danger mx-2">Delete</button>
             </form>
          </td>
       </tr>
@@ -76,12 +71,6 @@
 </table>
 {% endblock %} 
 {% block script %} 
-<script> 
-  $(document).ready(function() { 
-    console.log("hiii") 
-    setTimeout(function() {
-       $("#msg-box").hide(); 
-      }, 5000);  //10 seconds
-       }); 
-    </script> {% endblock %}
+
+{% endblock %}
     
