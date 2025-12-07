@@ -17,10 +17,7 @@ from rest_framework.authtoken.models import Token
 
 #JWT Auth
 from rest_framework_simplejwt.authentication import JWTAuthentication
-
-
-
-# from rest_framework.parsers import MultiPartParser, FormParser
+# from rest_framework.parsers import MultiPartParser, FormParser # for media acceptance
 # Create your views here.
 
 
@@ -87,7 +84,6 @@ Class based views to perform CRUD operations.
 #             serializer.save()
 #             return Response(serializer.data, status=status.HTTP_201_CREATED)
 #         return Response(serializer.errors, status= status.HTTP_400_BAD_REQUEST)
-    
 
 # class EmployeeDetailsView(APIView):
 #     def get_employee(self, pk):
@@ -171,7 +167,4 @@ class EmployeeRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView
 
 
 
-# class EmployeeListCreateView(generics.ListCreateAPIView):
-#     print('inside generic')
-#     queryset = Employee.objects.all()
-#     serializer_class = EmployeeSerializer
+

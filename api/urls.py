@@ -22,10 +22,12 @@ urlpatterns = [
 
 
      #generics urls
-     
     path("emp/", EmployeeListCreateView.as_view()),
     path("emp/<int:pk>", EmployeeRetrieveUpdateDestroyAPIView.as_view()),
-    path("api/token/", obtain_auth_token),
+    
+    
+    #Auth urls
+    path("api/token/", obtain_auth_token), #for token generation
     path('api/jwttoken/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/jwttoken/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     ]
