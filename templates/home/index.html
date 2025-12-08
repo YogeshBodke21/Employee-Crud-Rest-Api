@@ -16,6 +16,11 @@ td, tr, form, a, button{
    margin:0;
     padding:0;
 }
+.containerY{
+   margin:0;
+   padding:0;
+   width:100%;
+}
 
     {% endblock %} 
     
@@ -31,13 +36,14 @@ td, tr, form, a, button{
    </div>  
     {% endfor %} 
     {% endif %} 
-<table class="table table-hover">
+<table class="containerY table table-hover">
    <thead>
       <tr>
          <th scope="col">ID</th>
-         <th scope="col">photo</th>
+         <th scope="col">Photo</th>
          <th scope="col">First Name</th>
          <th scope="col">Last Name</th>
+         <th scope="col">Email</th>
          <th scope="col">Department</th>
          <th scope="col">Designation</th>
          <th scope="col">Salary</th>
@@ -53,6 +59,7 @@ td, tr, form, a, button{
          <td><img src="{{e.photo.url}}" alt="" class="card-img" height="60px"></td>
          <td>{{e.first_name}}</td>
          <td>{{e.last_name}}</td>
+         <td>{{e.email}}</td>
          <td>{{e.Department}}</td>
          <td>{{e.Designation}}</td>
          <td>{{e.salary}}</td>
@@ -60,10 +67,12 @@ td, tr, form, a, button{
          <td>{{e.hire_date}}</td>
          <td class="action-cell my-2">
             <a href="{% url 'up_emp' e.id %}" class="btn btn-warning">Update</a> 
+            {% if user.employee_profile and user.employee_profile.Designation.name == "Sr. HR Manager" %}
             <form method="POST" action="{% url 'del_emp' e.id %}"> 
               {% csrf_token %} 
               <button type="submit" class="btn btn-danger mx-2">Delete</button>
             </form>
+            {% endif %}
          </td>
       </tr>
       {% endfor %} 

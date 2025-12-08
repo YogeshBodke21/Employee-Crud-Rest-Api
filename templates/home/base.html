@@ -18,7 +18,7 @@
       nav {
         margin-bottom: 0.7rem;
       }
-      {% block sty %}{% endblock %}
+      {% block sty %} {% endblock %}
     </style>
   </head>
   <body>
@@ -34,22 +34,22 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" href="#">Home</a>
+              <a class="nav-link active" href="{% url 'home' %}">Home</a>
             </li>
 
             {% if request.user.is_authenticated %}
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'emp' %}">Employee List</a>
+              <a class="nav-link active" href="{% url 'emp' %}">Employee List</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'add_emp' %}">Add Employee</a>
+              <a class="nav-link active" href="{% url 'add_emp' %}">Create Profile</a>
             </li>
             {% else %}
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'login' %}">Employee List</a>
+              <a class="nav-link active" href="{% url 'login' %}">Employee List</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'login' %}">Add Employee</a>
+              <a class="nav-link active" href="{% url 'login' %}">Create Profile</a>
             </li>
             {% endif %}
           </ul>
@@ -59,16 +59,21 @@
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success" type="submit">Search</button>
           </form>
-
+          {% if user.employee_profile and user.employee_profile.Designation.name == "Sr. HR Manager" or user.employee_profile.Designation.name == "Manager" %}
+          <ul class="navbar-nav mx-2">
+            <li class="nav-item ">
+              <a class="nav-link btn btn-success py-0.4" href="{% url 'dashboard' %}">Dashboard</a>
+            </li>
+          </ul> {% endif %}
           <!-- User dropdown -->
           {% if request.user.is_authenticated %}
           <ul class="navbar-nav ms-3 mb-2 mb-lg-0">
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                {{ request.user }}
+                {{ request.user   }}
               </a>
               <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item" href="#">Profile</a></li>
+                <li><a class="dropdown-item" href="#"><strong>Designation : </strong> {{ request.user.employee_profile.Designation.name }}</a></li>
                 <li><a class="dropdown-item" href="#">Change Password</a></li>
                 <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
               </ul>
@@ -89,7 +94,7 @@
     </nav>
 
     <!-- Main content -->
-    <div class="container">
+    <div>
       {% block main %}{% endblock %}
     </div>
 
