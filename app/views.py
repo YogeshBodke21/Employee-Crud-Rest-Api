@@ -45,11 +45,19 @@ def add_emp_view(request):
             # Send email using celery
             email = emp.email
             user = emp.first_name + " " + emp.last_name
-
+            user_info =  request.user.employee_profile
+            user_manager = Employee.objects.filter(Designation__name ="Manager" , Department__name = user_info.Department.name ).first()
+            print("----", user_manager)
+            manager_email = user_manager.email
+            print("----", manager_email)
+            if manager_email:
+                html_manager = render_to_string("home/manager_mail_template.html", {"data": {"User": user, "manager":user_manager}})
+                send_mail_to_manager.delay(manager_email, html_manager)
+                print("mail sent to manager!")
             html_content = render_to_string("home/my_email.html", {"data": {"User": user}})
             send_html_mail_task.delay(email, html_content)
 
-            messages.success(request, "Employee profile created successfully!")
+            messages.success(request, "Employee profile has been created successfully and email has sent to user and respective manager!")
             return redirect("emp")
 
     return render(request, "home/add_emp.html", {"form": form})
